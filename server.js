@@ -20,6 +20,25 @@ router.get('/', function(req, res) {
   res.json({ message: 'hooray! Welcome to our api' });
 });
 
+router.route('/pages')
+  .post(function(req,res) {
+
+    var page = new Page();
+    page.name = req.body.name;
+    page.body = req.body.body;
+
+    page.save(function(err) {
+      if (err)
+        res.send(err);
+
+      res.json({ message: 'Page created' });
+
+
+    });
+    
+      console.log("Page created called " + req.body.name + " and with the content " + page.body);
+  });
+
 app.use('/api', router);
 app.listen(port);
 console.log("listening on the best port there is: " + port);
