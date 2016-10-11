@@ -33,11 +33,31 @@ router.route('/pages')
 
       res.json({ message: 'Page created' });
 
-
-    });
     
       console.log("Page created called " + req.body.name + " and with the content " + page.body);
+
+    });
+  })
+
+  .get(function(req, res) {
+    Page.find(function(err, pages) {
+      if (err)
+        res.send(err)
+
+      res.json(pages);
+    });
+
   });
+
+router.route("/pages/:page_id")
+  .get(function(req, res) {
+    Page.findById(req.params.page_id, function(err, page) {
+      if (err)
+        res.send(err);
+      res.json(page);
+    });
+  });
+
 
 app.use('/api', router);
 app.listen(port);
