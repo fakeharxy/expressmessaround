@@ -56,8 +56,21 @@ router.route("/pages/:page_id")
         res.send(err);
       res.json(page);
     });
-  });
+  })
 
+  .put(function(req, res) {
+    Page.findById(req.params.page_id, function(err, page) {
+      if (err)
+        res.send(err);
+      page.name = req.body.name;
+      page.body = req.body.body;
+      page.save(function(err) {
+        if (err)
+          res.send(err)
+        res.json({ message: "Page Updated" });
+      });
+    });
+  });
 
 app.use('/api', router);
 app.listen(port);
