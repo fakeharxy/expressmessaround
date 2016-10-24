@@ -40,7 +40,6 @@ router.route('/pages')
         message: 'Page created'
       });
 
-
       console.log("Page created called " + req.body.name + " and with the content " + page.body);
 
     });
